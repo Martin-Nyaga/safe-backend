@@ -1,11 +1,19 @@
-from app import app
+from flask import jsonify, request
+from app import app, db
+from app.models import User
 
 @app.route("/users", methods=["POST"])
 def new_user():
     # Accepts the following parameters:
     # - safe: true/false
-    # Creates user in database and returns ID
-    return 'new_user'
+    safe = request.json['safe']
+
+    # Creates user in database and returns user id
+    # to the frontend as json
+    u = User(safe=safe)
+    db.session.add(u)
+    db.session.commit()
+    return jsonify(user_id=u.id)
 
 @app.route("/users/<id>", methods=["POST"])
 def update_user():
