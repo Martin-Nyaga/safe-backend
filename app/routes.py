@@ -6,12 +6,14 @@ from app.models import User
 @app.route("/users", methods=["POST"])
 def new_user():
     # Accepts the following parameters:
-    # - safe: true/false
-    safe = request.json['safe']
-
+    # Safe Boolean Value: true/false
+    safe = request.json.get('safe')
+    # Request latitude, longitude from frontend/user
+    latitude = request.json.get('latitude')
+    longitude = request.json.get('longitude')
     # Creates user in database and returns user id
     # to the frontend as json
-    u = User(safe=safe)
+    u = User(safe=safe, latitude=latitude, longitude=longitude)
     db.session.add(u)
     db.session.commit()
     return jsonify(user_id=u.id)
