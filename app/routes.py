@@ -32,11 +32,6 @@ def update_user(id):
 
 @app.route("/users")
 def users():
-<<<<<<< HEAD
-
-    return 'list users'
-=======
->>>>>>> a1090573494d227ced2cfc9028f88f547b3cb200
     # Returns a list of all users with all their details
     users = User.query.all()
     return jsonify(users=[u.serialize for u in users])
