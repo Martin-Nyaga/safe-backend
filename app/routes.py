@@ -28,5 +28,4 @@ def update_user():
 def users():
     # Returns a list of all users with all their details
     users = User.query.all()
-    # Makes the name "Unknown User" for users whose names are unknown
-    return jsonify(users=users)
+    return jsonify(users=[u.serialize for u in users])
