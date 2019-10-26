@@ -27,7 +27,7 @@ def update_user(id):
     # - Updates full_name
     u.full_name = request.json['full_name']
     # - Updates date_of_birth
-    u.date_of_birth = datetime.datetime.strptime(request.json['date_of_birth'], "%d/%m/%Y").date()
+    u.date_of_birth = datetime.datetime.strptime(request.json['date_of_birth'], "%Y-%m-%d").date()
     db.session.add(u)
     db.session.commit()
     # Updates the user in the database and returns success
