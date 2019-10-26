@@ -16,16 +16,23 @@ def new_user():
     return jsonify(user_id=u.id)
 
 @app.route("/users/<id>", methods=["POST"])
-def update_user():
-    return 'update user'
+def update_user(id):
     # Receives user details:
     # - id
-    # - full_name
-    # - date_of_birth
+    id = request.args.get('id')
+    # Query database User object using id:
+    u = User.query.filter_by(id=id)
+    # - Updates full_name
+    u.full_name = request.json['full_name']
+    # - Updates date_of_birth
+    u.date_of_birth = request.json['date_of_birth']
+    db.session.commit()
     # Updates the user in the database and returns success
+    return jsonify(success=True)
 
 @app.route("/users")
 def users():
+
     return 'list users'
     # Returns a list of all users with all their details
     # Unknown for users whose names are unknown
