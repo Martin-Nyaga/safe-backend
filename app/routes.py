@@ -1,3 +1,4 @@
+import datetime
 from flask import jsonify, request
 from app import app, db
 from app.models import User
@@ -19,13 +20,13 @@ def new_user():
 def update_user(id):
     # Receives user details:
     # - id
-    id = request.args.get('id')
     # Query database User object using id:
-    u = User.query.filter_by(id=id)
+    u = User.query.get(id)
     # - Updates full_name
     u.full_name = request.json['full_name']
     # - Updates date_of_birth
-    u.date_of_birth = request.json['date_of_birth']
+    u.date_of_birth = datetime.datetime.strptime(request.json['date_of_birth'], "%d/%m/%Y").date()
+    db.session.add(u)
     db.session.commit()
     # Updates the user in the database and returns success
     return jsonify(success=True)
