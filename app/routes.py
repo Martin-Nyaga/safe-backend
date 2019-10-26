@@ -26,6 +26,7 @@ def update_user():
 
 @app.route("/users")
 def users():
-    return 'list users'
     # Returns a list of all users with all their details
-    # Unknown for users whose names are unknown
+    users = User.query.all()
+    # Makes the name "Unknown User" for users whose names are unknown
+    return jsonify(users=users)
