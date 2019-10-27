@@ -1,6 +1,7 @@
 import datetime, json
 from flask import jsonify, request
 from app import app, db
+from app.utils import distance
 from app.models import User, Post
 
 @app.route("/users", methods=["POST"])
@@ -46,6 +47,7 @@ def update_user(id):
 @app.route("/users")
 def users():
     # Returns a list of all users with all their details
+    # users = User.query.all().order_by(distance({self.latitude, self.longitude},{latitude, longitude}))
     users = User.query.all()
     return jsonify(users=[u.serialize for u in users])
 
