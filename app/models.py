@@ -6,9 +6,11 @@ class User(db.Model):
     full_name = db.Column(db.String(120))
     date_of_birth = db.Column(db.Date)
     safe = db.Column(db.Boolean)
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
 
     def __repr__(self):
-        return '<User {}: {}>'.format(self.full_name, self.date_of_birth)
+        return '<User Full Name: {}, Date Of Birth: {}, Latitude: {}, Longitude: {}>'.format(self.full_name, self.date_of_birth, self.latitude, self.longitude)
 
     def full_name_or_unknown(self):
         if self.full_name:
@@ -28,7 +30,9 @@ class User(db.Model):
            'id': self.id,
            'full_name': self.full_name_or_unknown(),
            'safe': self.safe,
-           'date_of_birth': self.date_of_birth_or_unknown()
+           'date_of_birth': self.date_of_birth_or_unknown(),
+           'latitude': self.latitude,
+           'longitude': self.longitude
        }
 
 class Post(db.Model):
