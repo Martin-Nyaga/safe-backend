@@ -15,11 +15,9 @@ def new_user():
     # to the frontend as json
     u = User(safe=safe, latitude=latitude, longitude=longitude)
 
-    content = request.json.get('post_content')
     db.session.add(u)
     db.session.commit()
-    add_post(content, u.id)
-    return jsonify(user_id=u.id)
+    return jsonify(user=u.serialize)
 
 @app.route("/users/<id>", methods=["POST"])
 def update_user(id):
@@ -37,9 +35,13 @@ def update_user(id):
     if safe != None:
         u.safe = safe
 
+    content = request.json.get('post_content')
+    if content != None:
+        add_post(content, u.id)
+
     db.session.add(u)
     db.session.commit()
-    return jsonify(success=True)
+    return jsonify(user=u.serialize)
 
 @app.route("/users")
 def users():
@@ -64,6 +66,6 @@ def create_post(user_id):
 
 # Helper function
 def add_post(content, user_id):
-    p = Post(user_id=user_id, content=content)
+    p = Post(user_id=user_id, content=content,timestamp=datetime.datetime.now())
     db.session.add(p)
     db.session.commit()
