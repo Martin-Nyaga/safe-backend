@@ -8,6 +8,8 @@ class User(db.Model):
     safe = db.Column(db.Boolean)
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
+    posts = db.relationship('Post', backref='user', lazy='dynamic')
+
 
     def __repr__(self):
         return '<User Full Name: {}, Date Of Birth: {}, Latitude: {}, Longitude: {}>'.format(self.full_name, self.date_of_birth, self.latitude, self.longitude)
@@ -32,7 +34,8 @@ class User(db.Model):
            'safe': self.safe,
            'date_of_birth': self.date_of_birth_or_unknown(),
            'latitude': self.latitude,
-           'longitude': self.longitude
+           'longitude': self.longitude,
+           'posts': [p.serialize for p in self.posts.all()]
        }
 
 class Post(db.Model):
@@ -42,4 +45,12 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Post {}>'.format(self.body)
+        return '<Post {}>'.format(self.content)
+
+    @property
+    def serialize(self):
+        return {
+            'id': self.id,
+            'content': self.content,
+            'user_id': self.user_id
+        }

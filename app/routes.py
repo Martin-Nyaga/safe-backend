@@ -1,7 +1,7 @@
 import datetime, json
 from flask import jsonify, request
 from app import app, db
-from app.models import User
+from app.models import User, Post
 
 @app.route("/users", methods=["POST"])
 def new_user():
@@ -14,8 +14,11 @@ def new_user():
     # Creates user in database and returns user id
     # to the frontend as json
     u = User(safe=safe, latitude=latitude, longitude=longitude)
+
+    content = request.json.get('post_content')
     db.session.add(u)
     db.session.commit()
+    add_post(content, u.id)
     return jsonify(user_id=u.id)
 
 @app.route("/users/<id>", methods=["POST"])
@@ -47,7 +50,20 @@ def users():
 @app.route("/guidance")
 def guidance():
     # Reads json and sends to frontend using jsonify
-    # file_name = os.path.join(app.static, 'disastersteps.json')
     with open('disastersteps.json') as guidance_json:
         data = json.load(guidance_json)
         return jsonify(data)
+
+
+@app.route("/users/<user_id>/posts", methods=["POST"])
+def create_post(user_id):
+    content = request.json.get('content')
+    add_post(content, user_id)
+    user = User.query.get(user_id)
+    return jsonify(user=user.serialize)
+
+# Helper function
+def add_post(content, user_id):
+    p = Post(user_id=user_id, content=content)
+    db.session.add(p)
+    db.session.commit()
