@@ -1,4 +1,4 @@
-import datetime
+import datetime, json
 from flask import jsonify, request
 from app import app, db
 from app.models import User
@@ -41,3 +41,11 @@ def users():
     # Returns a list of all users with all their details
     users = User.query.all()
     return jsonify(users=[u.serialize for u in users])
+
+@app.route("/guidance")
+def guidance():
+    # Reads json and sends to frontend using jsonify
+    # file_name = os.path.join(app.static, 'disastersteps.json')
+    with open('disastersteps.json') as guidance_json:
+        data = json.load(guidance_json)
+        return jsonify(data)

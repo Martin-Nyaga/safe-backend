@@ -4,13 +4,13 @@
         "If you're driving when a warning is issued, try to drive to the closest place you can take shelter",
         "If you're driving and cannot get to shelter, get out of the vehicle. Lay face-down, hands over your head in a ditch or a noticeably lower level next to the roadway, away from the vehicle",
         "If you're driving and see a tornado, do not try to outrun it. Pull over immediately and shelter with one of the two previous methods"]
-    
+
 },
 {"type": "Hurricane",
 "steps": ["Hunker Down, Evacuate When Ordered", "Monitor emergency radio, news radio, or television news for relevant information",
         "Secure your home and shelter in place", "Obey evacuation orders"]},
 {"type": "Earthquake",
-"steps": ["Get Under Something Sturdy or Find an Open Space", "Shield yourself or take shelter under sturdy furniture"
+"steps": ["Get Under Something Sturdy or Find an Open Space", "Shield yourself or take shelter under sturdy furniture",
         "If you're indoors, stay put", "If you're outdoors, get away from tall objects that may collapse",
         "If you're in a vehicle, stop quickly, but try to stay clear of those tall objects"]
 },
@@ -18,11 +18,10 @@
 "steps":["Listen to emergency radio", "If you're driving, do not pass through standing water, or water where you cannot see the bottom",
            "If you're walking, do not walk through moving or rushing water", "If there is any possibility of a flash flood, or you think a tsunami is imminent get to higher ground immediately",
            "If you time to evacuate your home, turn off utilities and move critical items to the highest possible point"]
- 
+
 },
 {"type": "Terrorist Attack",
 "steps": ["Look for the safest way out of the building or away from the vicinity", "Leave as quickly and calmly as possible",
         "If items are falling from above, get under a sturdy table", "If you're trapped under debris, stay close to a wall",
         "Don't use matches or lighters, in case of a gas leak"]
 }]
-
